@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inquizable-API</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    body { padding-top: 50px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Documentation of our Inquizable API</h1>
+      <p>
+        Documentation: <br/>
+        <i>get</i> <b>/users</b> --> gets all the users<br/>
+        <i>get</i> <b>/users/count</b> --> gets the amount of users<br/>
+        <i>get</i> <b>/users/answered</b> --> gets the total amount of answered questions by users<br/>
+        <i>get</i> <b>/users/correct</b> --> gets the total amount of <i>correctly</i> answered questions by users<br/>
+        <i>get</i> <b>/users/login</b> --> login, requires email and pw<br/>
+        <i>post</i> <b>/users/register</b> --> register, requires nickname, email, pw<br/>
+        <i>get</i> <b>/users/thisuser</b> --> returns all the information of logged in user, requires authToken<br/>
+        <i>get</i> <b>/users/{id}</b> --> gets only the user with that ID<br/>
+        <i>get</i> <b>/questions/all</b> --> gets all the questions<br/>
+        <i>get</i> <b>/questions</b> --> gets 10 random questions<br/>
+        <i>get</i> <b>/questions/count</b> --> gets the amount of questions<br/>
+        <i>get</i> <b>/questions/{id}</b> --> gets only the question with that ID<br/>
+        <i>post</i> <b>/questions</b> --> adds a question, needs type, category, difficulty, question, correct_answer, incorrect_answers, approved and Users_id<br/>
+        <i>get</i> <b>/questions/submitted/{users_id}</b> --> gets the amount of submitted questions that have been approved only by that user<br/>
+        <i>get</i> <b>/users/points</b> --> gets the nickname and points of all users, ordered by points DESC<br/>
+        <i>get</i> <b>/users/contributions</b> --> gets the nickname amounts of approved submitted questions from all users, ordered by amount DESC<br/>
+        <i>get</i> <b>/users/percentage</b> --> gets the nickname and % of correctly answered questions of all users, if atleast 30 questions have been answered, rounded to 1 decimal place and ordered by % DESC<br/>
+    </p>
+    </div>
+  </div>
+
+</body>
+</html>

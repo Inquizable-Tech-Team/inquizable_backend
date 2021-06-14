@@ -6,13 +6,19 @@ const users = require('./routes/Users')
 const questions = require('./routes/Questions')
 const leaderboard = require('./routes/Leaderboard')
 const cors = require('cors')
+const path = require('path');
 app.use(helmet())
 app.use(cors())
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     next()
-  })
+})
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './documentation.html'))
+})
 
 app.use('/', leaderboard)
 app.use('/', users)

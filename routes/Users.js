@@ -6,17 +6,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const verifyToken = require('./verifyToken');
 
-users.get('/', (req, res) => {
-    res.json('Api is working!')
-})
-
-
 users.get('/users', (req, res) => {
     client.query(`SELECT id, nickname, email, points, answered, correct FROM users`)
     .then(data => res.json(data.rows))
     .catch(err => res.json(err))
 })
-
 
 users.get('/users/count', (req, res) => {
     client.query('SELECT COUNT(*) FROM users')
@@ -38,7 +32,7 @@ users.get('/users/correct', (req, res) => {
 
 users.get('/users/login', async (req, res) => {
     const {email, pw} = req.body
-    if (!pw || !email) return res.json('password and email is required')
+    if (!pw || !email) return res.json('pw and email is required')
     const user = await client.query("SELECT * FROM users WHERE email=$1", [email])
     if (!user.rows[0]) return res.json('Email does not exists')
     const comparePassword = await bcrypt.compare(pw, user.rows[0].pw)
