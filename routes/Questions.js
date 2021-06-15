@@ -19,7 +19,7 @@ questions.get('/questions/count', (req, res) => {
 })
 
 questions.get('/questions', (req, res) => {
-    client.query('SELECT * FROM questions ORDER BY RANDOM() LIMIT 10')
+    client.query('SELECT * FROM questions WHERE approved=1 ORDER BY RANDOM() LIMIT 10')
     .then(data => res.json(data.rows))
     .catch(err => res.json(err))
 })
