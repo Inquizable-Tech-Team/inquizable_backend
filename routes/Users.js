@@ -70,7 +70,7 @@ users.put('/users/:id/pw', async (req, res) => {
 
 users.post('/users/register', async (req, res) => {
     const {nickname, email, pw, points} = req.body
-    if (!nickname || !email || !pw) return res.json('Nickname, Email and Password are required')
+    if (!nickname || !email || !pw) return res.json('Nickname, Email, Password and Points are required')
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(pw, salt)
     const query = 'INSERT INTO users (nickname, email, pw, points) VALUES($1, $2, $3, $4) RETURNING id, nickname, email, points, answered, correct'
