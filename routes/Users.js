@@ -70,14 +70,17 @@ users.put('/users/:id/pw', async (req, res) => {
 
 users.post('/users/register', async (req, res) => {
     const {nickname, email, pw, points} = req.body
-    if (!nickname || !email || !pw) return res.json('Nickname, Email, Password and Points are required')
+    if (!nickname || !email || !pw || !points) return res.json('Nickname, Email, Password and Points are required')
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(pw, salt)
-    const query = 'INSERT INTO users (nickname, email, pw, points) VALUES($1, $2, $3, $4) RETURNING id, nickname, email, points, answered, correct'
+    const query = 'INSERT INTO users (nickname, email, pw, points) VALUES($1, $2, $3, $4) RETURNING id, nickname, email'
     const values = [nickname, email, hashPassword, points]
-    client.query(query, values)
-    .then(data => res.json(data.rows))
-    .catch(err => res.json(err))
+    await client.query("SELECT email FROM users WHERE email=$1", [email]).then(data => {
+        if (data.rows.length > 0) return res.json('Email already exists')
+        else client.query(query, values)
+        .then(data => res.json(data.rows))
+        .catch(err => res.json(err))
+    })
 })
 
 users.put('/users/:id', (req, res) => {
