@@ -30,7 +30,7 @@ users.get('/users/correct', (req, res) => {
     .catch(err => res.json(err))
 })
 
-users.get('/users/login', async (req, res) => {
+users.post('/users/login', async (req, res) => {
     const {email, pw} = req.body
     if (!pw || !email) return res.json('pw and email is required')
     const user = await client.query("SELECT * FROM users WHERE email=$1", [email])
@@ -42,7 +42,7 @@ users.get('/users/login', async (req, res) => {
     res.json(token)
 })
 
-users.get('/users/thisuser', verifyToken, (req, res) => {
+users.post('/users/thisuser', verifyToken, (req, res) => {
     res.json(req.user.user.rows[0])  
 })
 
