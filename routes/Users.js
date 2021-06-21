@@ -83,6 +83,17 @@ users.post('/users/register', async (req, res) => {
     })
 })
 
+users.put('/users/:id/points', (req, res) => {
+    const { points, answered, correct} = req.body
+    if (!points || !answered || !correct) return res.json('Points, answered and correct are required')
+    const {id} = req.params
+    const query = 'UPDATE users SET points=$2, answered=$3, correct=$4 WHERE id=$1 RETURNING points, answered, correct'
+    const values = [id, points, answered, correct]
+    client.query(query, values)
+    .then(data => res.json(data.rows))
+    .catch(err => res.json(err))
+})
+
 users.put('/users/:id', (req, res) => {
     const {nickname, email, pw, points, answered, correct} = req.body
     if (!nickname || !email || !points || !answered || !correct) return res.json('Nickname, Email, Password, points, answered and correct are required')
