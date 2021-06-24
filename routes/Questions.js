@@ -6,14 +6,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const verifyToken = require('./verifyToken');
 
-questions.get('/questions/all', (req, res) => {
-    client.query('SELECT * FROM questions')
-        .then(data => {
-            res.set("X-Total-Count", data.rows.length)
-            res.json(data.rows)
-        })
-        .catch(err => res.json(err))
-})
+
 
 questions.get('/questions/count', (req, res) => {
     client.query('SELECT COUNT(*) FROM questions')
@@ -21,9 +14,18 @@ questions.get('/questions/count', (req, res) => {
         .catch(err => res.json(err))
 })
 
-questions.get('/questions', (req, res) => {
+questions.get('/questions/community', (req, res) => {
     client.query('SELECT * FROM questions WHERE approved=1 ORDER BY RANDOM() LIMIT 10')
         .then(data => res.json(data.rows))
+        .catch(err => res.json(err))
+})
+
+questions.get('/questions', (req, res) => {
+    client.query('SELECT * FROM questions')
+        .then(data => {
+            res.set("X-Total-Count", data.rows.length)
+            res.json(data.rows)
+        })
         .catch(err => res.json(err))
 })
 
