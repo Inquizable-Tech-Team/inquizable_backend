@@ -1,7 +1,7 @@
 const users = require('express').Router()
-const express = require('express')
-users.use(express.urlencoded({ extended: false }))
+/* const express = require('express')
 users.use(express.json())
+users.use(express.urlencoded({ extended: false })) */
 const client = require('../client.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
