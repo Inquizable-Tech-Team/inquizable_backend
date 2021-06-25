@@ -76,7 +76,7 @@ questions.put('/questions/:id', (req, res) => {
 
 questions.delete('/questions/:id', (req, res) => {
     client.query('DELETE FROM questions WHERE id=$1', [req.params.id])
-        .then(data => res.json(data.rows))
+        .then(data => res.json('Element has been removed'))
         .catch(err => res.json(err))
 })
 
