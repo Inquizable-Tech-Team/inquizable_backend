@@ -23,7 +23,7 @@ questions.get('/questions/community', (req, res) => {
 questions.get('/questions', (req, res) => {
     client.query('SELECT * FROM questions')
         .then(data => {
-            res.set("X-Total-Count", data.rows.length)
+            res.set("Content-Range", data.rows.length)
             res.json(data.rows)
         })
         .catch(err => res.json(err))

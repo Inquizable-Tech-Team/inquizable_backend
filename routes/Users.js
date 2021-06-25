@@ -9,7 +9,7 @@ const verifyToken = require('./verifyToken');
 users.get('/users', (req, res) => {
     client.query(`SELECT id, nickname, email, points, answered, correct FROM users`)
         .then(data => {
-            res.set("X-Total-Count", data.rows.length)
+            res.set("Content-Range", data.rows.length)
             res.json(data.rows)
         })
         .catch(err => res.json(err))
