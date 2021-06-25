@@ -1,6 +1,7 @@
 const questions = require('express').Router()
 const express = require('express')
-questions.use(express.urlencoded({ extended: false }))
+/* questions.use(express.urlencoded({ extended: false })) */
+questions.use(express.json())
 const client = require('../client.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
