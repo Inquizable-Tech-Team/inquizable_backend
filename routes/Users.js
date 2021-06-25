@@ -1,6 +1,6 @@
 const users = require('express').Router()
 const express = require('express')
-/* users.use(express.urlencoded({ extended: false })) */
+users.use(express.urlencoded({ extended: false }))
 users.use(express.json())
 const client = require('../client.js')
 const bcrypt = require('bcryptjs')
