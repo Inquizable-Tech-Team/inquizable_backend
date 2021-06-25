@@ -1,7 +1,4 @@
 const questions = require('express').Router()
-/* const express = require('express')
-questions.use(express.json())
-questions.use(express.urlencoded({ extended: false })) */
 const client = require('../client.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -71,7 +68,7 @@ questions.put('/questions/:id', (req, res) => {
     const query = 'UPDATE questions SET type=$2, category=$3, difficulty=$4, question=$5, correct_answer=$6, incorrect_answers=$7, approved=$8, Users_id=$9 WHERE id=$1 RETURNING *'
     const values = [id, type, category, difficulty, question, correct_answer, incorrect_answers, approved, Users_id]
     client.query(query, values)
-        .then(data => res.json(data.rows))
+        .then(data => res.json(data.rows[0]))
         .catch(err => res.json(err))
 })
 
