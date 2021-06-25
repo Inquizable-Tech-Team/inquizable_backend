@@ -53,7 +53,7 @@ users.get('/users/:id', (req, res) => {
     const query = 'SELECT id, nickname, email, points, answered, correct FROM users WHERE id=$1'
     const values = [id]
     client.query(query, values)
-        .then(data => res.json(data.rows))
+        .then(data => res.json(data.rows[0]))
         .catch(err => res.json(err))
 })
 

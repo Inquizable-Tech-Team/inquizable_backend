@@ -51,7 +51,7 @@ questions.get('/questions/submitted/:user', (req, res) => {
 
 questions.get('/questions/:id', (req, res) => {
     client.query('SELECT * FROM questions WHERE id=$1', [req.params.id])
-        .then(data => res.json(data.rows))
+        .then(data => res.json(data.rows[0]))
         .catch(err => res.json(err))
 })
 
