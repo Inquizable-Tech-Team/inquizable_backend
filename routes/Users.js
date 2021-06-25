@@ -3,6 +3,10 @@ const client = require('../client.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const verifyToken = require('./verifyToken');
+const express = require('express')
+users.use(express.json( {strict: false} )) 
+users.use(express.urlencoded({ extended: true }))
+
 
 users.get('/users', (req, res) => {
     client.query(`SELECT id, nickname, email, points, answered, correct FROM users`)

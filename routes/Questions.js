@@ -3,7 +3,9 @@ const client = require('../client.js')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const verifyToken = require('./verifyToken');
-
+const express = require('express')
+questions.use(express.json( {strict: false} )) 
+questions.use(express.urlencoded({ extended: true }))
 
 
 questions.get('/questions/count', (req, res) => {
@@ -33,7 +35,7 @@ questions.post('/questions', (req, res) => {
     const query = 'INSERT INTO questions (type, category, difficulty, question, correct_answer, incorrect_answers, approved, Users_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
     const values = [type, category, difficulty, question, correct_answer, incorrect_answers, approved, Users_id]
     client.query(query, values)
-        .then(data => res.json(data.rows))
+        .then(data => res.json(data.rows[0]))
         .catch(err => res.json(err))
 })
 

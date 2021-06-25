@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const bodyParser  = require('body-parser')
 const helmet = require("helmet");
 const port = process.env.PORT || 3002
 const users = require('./routes/Users')
@@ -9,10 +8,6 @@ const leaderboard = require('./routes/Leaderboard')
 const cors = require('cors')
 const path = require('path');
 app.use(helmet())
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-/* app.use(express.json( {strict: false} ))  */
-/* app.use(express.urlencoded({ extended: true })) */
 app.use(cors())
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
