@@ -66,7 +66,7 @@ questions.put('/questions/:id/confirm', (req, res) => {
 questions.put('/questions/:id', (req, res) => {
     const { type, category, difficulty, question, correct_answer, incorrect_answers, approved, users_id } = req.body
     const { id } = req.params
-    if (!type || !category || !difficulty || !question || !correct_answer || !incorrect_answers || !approved || !users_id) return res.json('Not all required Fields are filled out')
+    /* if (!type || !category || !difficulty || !question || !correct_answer || !incorrect_answers || !approved || !users_id) return res.json('Not all required Fields are filled out') */
     const query = 'UPDATE questions SET type=$2, category=$3, difficulty=$4, question=$5, correct_answer=$6, incorrect_answers=$7, approved=$8, Users_id=$9 WHERE id=$1 RETURNING *'
     const values = [id, type, category, difficulty, question, correct_answer, incorrect_answers, approved, users_id]
     client.query(query, values)
