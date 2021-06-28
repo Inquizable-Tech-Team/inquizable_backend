@@ -42,7 +42,7 @@ const STOP_TYPING_MESSAGE_EVENT = "STOP_TYPING_MESSAGE_EVENT";
 io.on("connection", (socket) => {
     console.log(`${socket.id} connected`);
     // Join a conversation
-    const { roomId, name, picture } = socket.handshake.query;
+    const { roomId, name } = socket.handshake.query;
     socket.join(roomId);
     const user = addUser(socket.id, roomId, name);
     io.in(roomId).emit(USER_JOIN_CHAT_EVENT, user);
