@@ -9,21 +9,11 @@ const leaderboard = require('./routes/Leaderboard')
 const socketIo = require("socket.io");
 const { addUser, removeUser, getUsersInRoom } = require("./routes/Chat/users");
 const { addMessage, getMessagesInRoom } = require("./routes/Chat/message");
-
-
 const cors = require('cors')
 const path = require('path');
+
 app.use(helmet())
 
-//Message Server
-const server = http.createServer(app);
-const io = socketIo(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        credentials: true,
-    },
-});
 //Cors
 app.use(cors())
 app.use((req, res, next) => {
@@ -32,6 +22,16 @@ app.use((req, res, next) => {
     res.header('Access-Control-Expose-Headers', 'Content-Range')
     next()
 })
+
+//Message Server
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        credentials: true,
+    },
+});
 //More Message and Socket.io
 const USER_JOIN_CHAT_EVENT = "USER_JOIN_CHAT_EVENT";
 const USER_LEAVE_CHAT_EVENT = "USER_LEAVE_CHAT_EVENT";
