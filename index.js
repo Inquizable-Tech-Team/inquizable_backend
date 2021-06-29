@@ -1,16 +1,20 @@
 const http = require("http");
 const express = require('express')
 const app = express()
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json()); 
 const helmet = require("helmet");
 const port = process.env.PORT || 3002
 const users = require('./routes/Users')
 const questions = require('./routes/Questions')
 const leaderboard = require('./routes/Leaderboard')
-const socketIo = require("socket.io");
+const socketIo = require("socket.io")
 const { addUser, removeUser, getUsersInRoom } = require("./routes/Chat/users");
 const { addMessage, getMessagesInRoom } = require("./routes/Chat/message");
 const cors = require('cors')
 const path = require('path');
+
+
 
 app.use(helmet())
 
@@ -27,7 +31,7 @@ app.use((req, res, next) => {
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: "*",
+        origin: '*',
         methods: ["GET", "POST"],
         credentials: true,
     },
@@ -42,9 +46,9 @@ const STOP_TYPING_MESSAGE_EVENT = "STOP_TYPING_MESSAGE_EVENT";
 io.on("connection", (socket) => {
     console.log(`${socket.id} connected`);
     // Join a conversation
-    const { roomId, name } = socket.handshake.query;
+    const { roomId, nickname } = socket.handshake.query;
     socket.join(roomId);
-    const user = addUser(socket.id, roomId, name);
+    const user = addUser(socket.id, roomId, nickname);
     io.in(roomId).emit(USER_JOIN_CHAT_EVENT, user);
     // Listen for new messages
     socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
