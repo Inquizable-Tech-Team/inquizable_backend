@@ -98,6 +98,17 @@ users.put('/users/:id/points', (req, res) => {
         .catch(err => res.json(err))
 })
 
+users.put('/users/:id/name', (req, res) => {
+    const { nickname } = req.body
+    if (!nickname) return res.json('Nickname is required')
+    const { id } = req.params
+    const query = 'UPDATE users SET nickname=$2 WHERE id=$1 RETURNING nickname'
+    const values = [id, nickname]
+    client.query(query, values)
+        .then(data => res.json(data.rows))
+        .catch(err => res.json(err))
+})
+
 users.put('/users/:id', (req, res) => {
     const { nickname, email, points, answered, correct } = req.body
     if (!nickname || !email || !points || !answered || !correct) return res.json('Nickname, Email, Points, answered and correct are required')
