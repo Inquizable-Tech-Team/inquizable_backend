@@ -8,7 +8,7 @@ const addUser = (id, room, name) => {
   if (!name || !room) return { error: "Username and room are required." };
   if (existingUser) return { error: "Username is taken." };
 
-  const user = { id, name, room };
+  const user = { id, nickname, room };
 
   users.push(user);
 
