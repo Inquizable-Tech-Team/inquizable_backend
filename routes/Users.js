@@ -52,7 +52,7 @@ users.post('/users/thisuser', verifyToken, (req, res) => {
 
 users.get('/users/:id', (req, res) => {
     const { id } = req.params
-    const query = 'SELECT id, nickname, email, points, answered, correct FROM users WHERE id=$1'
+    const query = 'SELECT id, nickname, email, points, answered, correct, admin FROM users WHERE id=$1'
     const values = [id]
     client.query(query, values)
         .then(data => res.json(data.rows[0]))
