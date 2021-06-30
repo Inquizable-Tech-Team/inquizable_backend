@@ -14,8 +14,6 @@ const { addMessage, getMessagesInRoom } = require("./routes/Chat/message");
 const cors = require('cors')
 const path = require('path');
 
-
-
 app.use(helmet())
 
 //Cors
@@ -36,6 +34,7 @@ const io = socketIo(server, {
         credentials: true,
     },
 });
+
 //More Message and Socket.io
 const USER_JOIN_CHAT_EVENT = "USER_JOIN_CHAT_EVENT";
 const USER_LEAVE_CHAT_EVENT = "USER_LEAVE_CHAT_EVENT";
@@ -97,4 +96,6 @@ app.use('/', leaderboard)
 app.use('/', users)
 app.use('/', questions)
 
-app.listen(port, console.log(`Server is listening on port ${port}`))
+server.listen(port, () => {
+    console.log(`Listening on port ${port}`);
+  })
