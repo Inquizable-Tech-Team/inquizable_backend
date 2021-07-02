@@ -41,7 +41,7 @@ users.post('/users/login', async (req, res) => {
     if (!user.rows[0]) return res.json('Email does not exists')
     const comparePassword = await bcrypt.compare(pw, user.rows[0].pw)
     if (!comparePassword) return res.status(400).send('Wrong password')
-    const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: '1h' })
+    const token = jwt.sign({ user }, process.env.SECRET, { expiresIn: '5h' })
     res.header('auth-token', token)
     res.json(token)
 })
