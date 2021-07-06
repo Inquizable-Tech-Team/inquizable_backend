@@ -97,11 +97,15 @@ users.put('/users/:id/points', (req, res) => {
     const { points, answered, correct } = req.body
     if (!points || !answered || !correct) return res.json('Points, answered and correct are required')
     const { id } = req.params
-    const query = 'UPDATE users SET points=$2, answered=$3, correct=$4 WHERE id=$1 RETURNING points, answered, correct'
+    const user = await client.query("SELECT * FROM users WHERE id=$1", [id])
+    if (user.rows[0].points+200<points) return res.json('Stop it Donald!')
+    else {
+        const query = 'UPDATE users SET points=$2, answered=$3, correct=$4 WHERE id=$1 RETURNING points, answered, correct'
     const values = [id, points, answered, correct]
     client.query(query, values)
         .then(data => res.json(data.rows))
         .catch(err => res.json(err))
+    }
 })
 
 users.put('/users/:id/name', (req, res) => {
