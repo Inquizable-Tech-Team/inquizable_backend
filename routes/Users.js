@@ -93,7 +93,7 @@ users.post('/users/register', async (req, res) => {
     })
 })
 
-users.put('/users/:id/points', (req, res) => {
+users.put('/users/:id/points', async (req, res) => {
     const { points, answered, correct } = req.body
     if (!points || !answered || !correct) return res.json('Points, answered and correct are required')
     const { id } = req.params
