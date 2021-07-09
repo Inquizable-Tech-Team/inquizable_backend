@@ -19,7 +19,7 @@ app.use(helmet())
 //Cors
 app.use(cors())
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Origin", "https://www.inquizable.com")
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     res.header('Access-Control-Expose-Headers', 'Content-Range')
     next()
