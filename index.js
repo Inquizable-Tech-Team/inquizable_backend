@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-        origin: '*',
+        origin: 'https://www.inquizable.com',
         methods: ["GET", "POST"],
         credentials: true,
     },
